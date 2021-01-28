@@ -16,7 +16,7 @@ if __name__ == "__main__":
     audio_features_scaled = a_f_scaler.transform(audio_features)
     df_audio_features_scaled = pd.DataFrame(audio_features_scaled, columns=audio_features.columns)
 
-    a_f_kmeans = KMeans(n_clusters=7, random_state=1234)
+    a_f_kmeans = KMeans(n_clusters=5, random_state=1234)
     a_f_kmeans.fit(audio_features_scaled)
     pickle.dump(a_f_kmeans, open("audio_features_kmeans.pkl", "wb"))
 

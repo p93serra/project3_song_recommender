@@ -50,9 +50,13 @@ def get_audio_features_tracks(uri_songs_list):
     return df_audio_features
 
 if __name__ == "__main__":
+    path = "/Users/pauserrabergeron/Private/Ironhack/Course/credentials/"
+    f = open(path + "spotify_credentials.txt", "r")
+    dict_credentials = json.loads(f.read()[:-1])
+
     sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
-        client_id="af9ddcc5c792418e989d0746d5f123ea",
-        client_secret="042754efae2146c8adcd80bf6811c3f0"))
+        client_id=dict_credentials["client_id"],
+        client_secret=dict_credentials["client_secret"]))
 
     url_10000_songs_playlist = "https://open.spotify.com/playlist/1hMzceeWw7QiI6vaBkcEJO"
 

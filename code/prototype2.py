@@ -12,6 +12,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 import pickle
 import webbrowser
+import json
 
 def create_hot_songs_database(url):
     # Make request to the url
@@ -105,9 +106,13 @@ if __name__ == "__main__":
     url_hot = "https://www.billboard.com/charts/hot-100"
     url_2010 = "https://www.billboard.com/charts/decade-end/hot-100"
 
+    path = "/Users/pauserrabergeron/Private/Ironhack/Course/credentials/"
+    f = open(path + "spotify_credentials.txt", "r")
+    dict_credentials = json.loads(f.read()[:-1])
+
     sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
-        client_id="af9ddcc5c792418e989d0746d5f123ea",
-        client_secret="042754efae2146c8adcd80bf6811c3f0"))
+        client_id=dict_credentials["client_id"],
+        client_secret=dict_credentials["client_secret"]))
 
     user_song = ask_song()
 
@@ -151,7 +156,7 @@ if __name__ == "__main__":
             print("Song not found in Spotify...")
         else:
             recommended_song_url = results["tracks"]["items"][0]["external_urls"]["spotify"]
-            reproduce = input("Do you want to open it in Spotify? Yes[y] or No[n]")
+            reproduce = input("Do you want to open it in Spotify? Yes[y] or No[n] ")
             if reproduce == "y":
                 webbrowser.open(recommended_song_url)
             elif reproduce == "n":
